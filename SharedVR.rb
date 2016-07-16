@@ -1,12 +1,18 @@
-port = 1435;
+def set_port_number (argument, default_port)
+	if argument.nil?
+		return default_port
+	end
 
-if !ARGV[0].nil?
 	begin
-		port = Integer ARGV[0]
+		Integer argument
 	rescue ArgumentError
 		puts "Port number is invalid."
 		exit -1
 	end
 end
+
+
+
+port = set_port_number ARGV[0], 1435
 
 puts port
