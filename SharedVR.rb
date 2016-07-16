@@ -20,6 +20,18 @@ end
 
 
 port = set_port_number ARGV[0], 1435
+server = TCPServer.open port
 
 puts "IP Address: #{get_my_address}."
 puts "Listen on #{port}."
+
+socket = server.accept
+
+puts "#{socket} is accepted."
+
+while socket.gets
+	puts $_
+	socket.write($_)
+end
+
+puts "#{socket} is gone."
