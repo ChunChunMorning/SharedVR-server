@@ -21,5 +21,5 @@ end
 
 port = set_port_number ARGV[0], 1435
 
-puts port
-puts get_my_address
+puts "IP Address: #{get_my_address}."
+puts "Listen on #{port}."
