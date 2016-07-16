@@ -1,3 +1,5 @@
+require 'socket'
+
 def set_port_number (argument, default_port)
 	if argument.nil?
 		return default_port
@@ -11,8 +13,13 @@ def set_port_number (argument, default_port)
 	end
 end
 
+def get_my_address
+	TCPSocket.gethostbyname(Socket::gethostname)[4]
+end
+
 
 
 port = set_port_number ARGV[0], 1435
 
 puts port
+puts get_my_address
