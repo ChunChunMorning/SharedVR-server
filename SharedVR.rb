@@ -31,7 +31,7 @@ puts "#{socket} is accepted."
 
 while socket.gets
 	puts $_
-	socket.write($_)
+	socket.write $_
 end
 
 puts "#{socket} is gone."
