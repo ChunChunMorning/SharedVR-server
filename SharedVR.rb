@@ -30,8 +30,12 @@ socket = server.accept
 puts "#{socket} is accepted."
 
 while socket.gets
-	puts $_
-	socket.write $_
+	if $_ == "quit\n"
+		break;
+	else
+		puts $_
+		socket.write $_
+	end
 end
 
 puts "#{socket} is gone."
