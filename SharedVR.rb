@@ -1,4 +1,5 @@
 require 'socket'
+require_relative './User'
 
 def set_port_number (argument, default_port)
 	if argument.nil?
@@ -25,17 +26,7 @@ server = TCPServer.open port
 puts "IP Address: #{get_my_address}."
 puts "Listen on #{port}."
 
-socket = server.accept
-
-puts "#{socket} is accepted."
-
-while socket.gets
-	if $_ == "quit\n"
-		break;
-	else
-		puts $_
-		socket.write $_
-	end
+loop do
+	socket = server.accept
+	user = User.new socket
 end
-
-puts "#{socket} is gone."
