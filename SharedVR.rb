@@ -28,5 +28,5 @@ puts "Listen on #{port}."
 
 loop do
 	socket = server.accept
-	user = User.new socket
+	user = User.new "name", socket
 end
