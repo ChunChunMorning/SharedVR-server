@@ -11,27 +11,11 @@ class UserManager
 	]
 
 	def initialize
-		@users = {}
+		@users = Array.new
 	end
 
 	def add_user socket
-		loop do
-			name = @@names.sample 1
-			if !exist_user? name
-				break
-			end
-		end
-
-		@users << User.new(name, socket)
-	end
-
-	def exist_user? name
-		@users.each { |user|
-			if name == user.name
-				return true
-			end
-		}
-		false
+		@users << User.new((@@names.sample 1), socket)
 	end
 
 end
