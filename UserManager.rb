@@ -12,10 +12,24 @@ class UserManager
 			"viper", "wolf", "xyz", "yak", "zebla"
 		]
 		@names.shuffle!
+		@mutex = Mutex.new
 	end
 
 	def add_user socket
-		@users << User.new(@names.shift, socket)
+		@users << User.new(self, @names.shift, socket)
+		puts "#{@users.last.name} join!"
+	end
+
+	def send from, message
+		@mutex.synchronize {
+			@users.each { |user|
+				if user.name != from
+					user.write "#{from},#{message}"
+				end
+			}
+
+			puts "#{from}: #{message}"
+		}
 	end
 
 end

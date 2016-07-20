@@ -1,8 +1,9 @@
 require 'socket'
-#require_relative './UserManager'
+require_relative './UserManager'
 
 class User
-	def initialize name, socket
+	def initialize user_manager, name, socket
+		@user_manager = user_manager
 		@name = name
 		@socket = socket
 		@read_thread = Thread.new {
@@ -10,8 +11,7 @@ class User
 				if $_ == "quit\n"
 					break;
 				else
-					write "#{@name},#{$_}"
-					puts "#{@name},#{$_}"
+					@user_manager.send @name, $_
 				end
 			end
 		}
