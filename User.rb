@@ -16,7 +16,7 @@ class User
 			end
 		}
 
-		@socket.write "server,you are #{@name}"
+		@socket.write "server,You are #{@name}"
 	end
 
 	def name
