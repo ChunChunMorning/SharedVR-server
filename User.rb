@@ -10,8 +10,8 @@ class User
 				if $_ == "quit\n"
 					break;
 				else
-					@socket.write "#{@name},#{$_}"
 					write "#{@name},#{$_}"
+					puts "#{@name},#{$_}"
 				end
 			end
 		}
@@ -24,6 +24,6 @@ class User
 	end
 
 	def write message
-		puts message
+		@socket.write message
 	end
 end
