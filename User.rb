@@ -10,11 +10,13 @@ class User
 				if $_ == "quit\n"
 					break;
 				else
-					@socket.write @name + ',' + $_
-					write @name + ',' + $_
+					@socket.write "#{@name},#{$_}"
+					write "#{@name},#{$_}"
 				end
 			end
 		}
+
+		@socket.write "server,you are #{@name}"
 	end
 
 	def name
