@@ -29,7 +29,7 @@ class User
 
 	def read
 		begin
-			Timeout.timeout(10) {
+			Timeout.timeout(60) {
 				@socket.gets
 			}
 			$_ == "quit\n" ? nil : $_
