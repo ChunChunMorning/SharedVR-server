@@ -27,7 +27,7 @@ class UserManager
 		@mutex.synchronize {
 			name = user.name
 			@names.push name
-			@users.erase user
+			@users.delete user
 			puts "#{name} leave..."
 		}
 	end
