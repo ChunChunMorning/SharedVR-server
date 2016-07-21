@@ -1,3 +1,5 @@
+require 'socket'
+
 module Port
 	def set_port_number argument, default_port
 		if argument.nil?

@@ -1,7 +1,7 @@
 require 'socket'
-require_relative './Port'
-require_relative './User'
-require_relative './UserManager'
+require_relative './port/port'
+require_relative './user'
+require_relative './user_manager'
 
 port = Port.set_port_number ARGV[0], 1435
 server = TCPServer.open port

@@ -1,5 +1,5 @@
 require 'socket'
-require_relative './User'
+require_relative './user'
 
 class UserManager
 	def initialize
