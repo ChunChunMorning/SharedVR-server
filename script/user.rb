@@ -1,4 +1,5 @@
 require 'socket'
+require 'timeout'
 require_relative './user_manager'
 
 class User
@@ -7,15 +8,24 @@ class User
 		@name = name
 		@socket = socket
 		@read_thread = Thread.new {
-			while @socket.gets
-				if $_ == "quit\n"
-					break;
-				else
-					@user_manager.send @name, $_
-				end
-			end
-		}
+			loop {
+				begin
+					Timeout.timeout(60) {
+						@socket.gets
 
+						if $_ == "quit\n"
+							break;
+						else
+							@user_manager.send @name, $_
+						end
+					}
+				rescue Timeout::Error
+					break
+				end
+			}
+			@socket.close
+			@user_manager.erase_user self
+		}
 		@socket.write "server,You are #{@name}"
 	end
 
