@@ -14,7 +14,7 @@ class User
 				if message.nil?
 					break
 				else
-					@user_manager.send @name, message
+					analyze message
 				end
 			}
 			@socket.close
@@ -40,5 +40,14 @@ class User
 
 	def write message
 		@socket.write message
+	end
+
+	def analyze message
+		case message
+		when "\n"
+			# Reset timeout.
+		else
+			@user_manager.send @name, message
+		end
 	end
 end
