@@ -24,6 +24,17 @@ class UserManager
 		}
 	end
 
+	def erase_user user
+		mutex = Mutex.new
+
+		mutex.synchronize {
+			name = user.name
+			@names.push name
+			@users.erase user
+			puts "#{name} leave..."
+		}
+	end
+
 	def send from, message
 		mutex = Mutex.new
 
