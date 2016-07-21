@@ -9,17 +9,7 @@ class User
 		@socket = socket
 		@read_thread = Thread.new {
 			loop {
-				begin
-					Timeout.timeout(60) {
-						@socket.gets
-
-						if $_ == "quit\n"
-							break;
-						else
-							@user_manager.send @name, $_
-						end
-					}
-				rescue Timeout::Error
+				if !read
 					break
 				end
 			}
@@ -31,6 +21,23 @@ class User
 
 	def name
 		@name
+	end
+
+	def read
+		begin
+			Timeout.timeout(60) {
+				@socket.gets
+
+				if $_ == "quit\n"
+					return false
+				else
+					@user_manager.send @name, $_
+				end
+			}
+			return true
+		rescue Timeout::Error
+			return false
+		end
 	end
 
 	def write message
