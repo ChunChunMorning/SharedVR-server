@@ -12,7 +12,6 @@ class UserManager
 			"viper", "wolf", "xyz", "yak", "zebla"
 		]
 		@names.shuffle!
-		@mutex = Mutex.new
 	end
 
 	def add_user socket
@@ -21,7 +20,9 @@ class UserManager
 	end
 
 	def send from, message
-		@mutex.synchronize {
+		mutex = Mutex.new
+
+		mutex.synchronize {
 			@users.each { |user|
 				if user.name != from
 					user.write "#{from},#{message}"
