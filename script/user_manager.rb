@@ -5,11 +5,11 @@ class UserManager
 	def initialize
 		@users = Array.new
 		@names = [
-			"ant", "bear", "cat", "dog", "eel",
-			"fox", "goat", "hippo", "jackal", "koala",
-			"lion", "mouse", "newt", "owl", "pig",
+			"ayeaye", "bear", "cat", "dog", "eagle",
+			"fox", "goat", "hippo", "ibis", "jackal",
+			"koala", "lion", "mouse", "newt", "owl", "pig",
 			"quail", "rabbit", "sheep", "tiger", "unicon",
-			"viper", "wolf", "xyz", "yak", "zebla"
+			"viper", "wolf", "xiwi", "yak", "zebla"
 		]
 		@names.shuffle!
 	end
