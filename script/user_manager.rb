@@ -12,12 +12,11 @@ class UserManager
 			"viper", "wolf", "xiwi", "yak", "zebla"
 		]
 		@names.shuffle!
+		@mutex = Mutex.new
 	end
 
 	def add_user socket
-		mutex = Mutex.new
-
-		mutex.synchronize {
+		@mutex.synchronize {
 			name = @names.shift
 			@users << User.new(self, name, socket)
 			puts "#{name} join!"
@@ -25,9 +24,7 @@ class UserManager
 	end
 
 	def erase_user user
-		mutex = Mutex.new
-
-		mutex.synchronize {
+		@mutex.synchronize {
 			name = user.name
 			@names.push name
 			@users.erase user
@@ -36,9 +33,7 @@ class UserManager
 	end
 
 	def send from, message
-		mutex = Mutex.new
-
-		mutex.synchronize {
+		@mutex.synchronize {
 			@users.each { |user|
 				if user.name != from
 					user.write "#{from},#{message}"
