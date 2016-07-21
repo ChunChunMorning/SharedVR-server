@@ -15,8 +15,13 @@ class UserManager
 	end
 
 	def add_user socket
-		@users << User.new(self, @names.shift, socket)
-		puts "#{@users.last.name} join!"
+		mutex = Mutex.new
+
+		mutex.synchronize {
+			name = @names.shift
+			@users << User.new(self, name, socket)
+			puts "#{name} join!"
+		}
 	end
 
 	def send from, message
@@ -28,9 +33,7 @@ class UserManager
 					user.write "#{from},#{message}"
 				end
 			}
-
 			puts "#{from}: #{message}"
 		}
 	end
-
 end
