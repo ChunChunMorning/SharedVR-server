@@ -7,7 +7,7 @@ class User
 		@user_manager = user_manager
 		@name = name
 		@socket = socket
-		@read_thread = Thread.new {
+		Thread.new {
 			loop {
 				message = read
 
