@@ -4,38 +4,29 @@ require_relative './user'
 class UserManager
 	def initialize
 		@users = Array.new
-		@names = [
-			"ayeaye", "bear", "cat", "dog", "eagle",
-			"fox", "goat", "hippo", "ibis", "jackal",
-			"koala", "lion", "mouse", "newt", "owl", "pig",
-			"quail", "rabbit", "sheep", "tiger", "unicon",
-			"viper", "wolf", "xiwi", "yak", "zebla"
-		]
-		@names.shuffle!
+		@id = 0
 		@mutex = Mutex.new
 	end
 
 	def add_user socket
 		@mutex.synchronize {
-			name = @names.shift
-			@users << User.new(self, name, socket)
-			puts "#{name} join!"
+			@users << User.new(self, @id.to_s, socket)
+			puts "#{@id} join!"
+			@id += 1
 		}
 	end
 
 	def erase_user user
 		@mutex.synchronize {
-			name = user.name
-			@names.push name
 			@users.delete user
-			puts "#{name} leave..."
+			puts "#{user.id} leave..."
 		}
 	end
 
 	def send from, message
 		@mutex.synchronize {
 			@users.each { |user|
-				if user.name != from
+				if user.id != from
 					user.write "#{from},#{message}"
 				end
 			}

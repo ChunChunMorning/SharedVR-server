@@ -3,9 +3,9 @@ require 'timeout'
 require_relative './user_manager'
 
 class User
-	def initialize user_manager, name, socket
+	def initialize user_manager, id, socket
 		@user_manager = user_manager
-		@name = name
+		@id = id
 		@socket = socket
 		Thread.new {
 			loop {
@@ -20,11 +20,11 @@ class User
 			@socket.close
 			@user_manager.erase_user self
 		}
-		@socket.write "server,You are #{@name}"
+		@socket.write "server,You are #{@id}"
 	end
 
-	def name
-		@name
+	def id
+		@id
 	end
 
 	def read
@@ -47,7 +47,7 @@ class User
 		when "\n"
 			# Reset timeout.
 		else
-			@user_manager.send @name, message
+			@user_manager.send @id, message
 		end
 	end
 end
