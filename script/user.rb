@@ -3,6 +3,9 @@ require 'timeout'
 require_relative './user_manager'
 
 class User
+
+	attr_accessor :position
+
 	def initialize user_manager, id, socket
 		@user_manager = user_manager
 		@id = id
@@ -21,7 +24,6 @@ class User
 			@socket.close
 			@user_manager.erase_user self
 		}
-		@socket.write "server,You are #{@id}"
 	end
 
 	def id

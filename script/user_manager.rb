@@ -9,10 +9,16 @@ class UserManager
 	end
 
 	def add_user socket
-		send 's', "add,#{@id}"
 		@mutex.synchronize {
+			send_unlocked 's', "add,#{@id}"
 			@users << User.new(self, @id.to_s, socket)
-			puts "#{@id} join!"
+
+			data = "you,#{@id}\n"
+			@users.each { |user|
+				data << "add,#{user.id},#{user.position}\n"
+			}
+			socket.write data
+
 			@id += 1
 		}
 	end
@@ -26,12 +32,16 @@ class UserManager
 
 	def send from, message
 		@mutex.synchronize {
-			@users.each { |user|
-				if user.id != from
-					user.write "#{from},#{message}"
-				end
-			}
-			puts "#{from}: #{message}"
+			send_unlocked from message
 		}
+	end
+
+	def send_unlocked from, message
+		@users.each { |user|
+			if user.id != from
+				user.write "#{from},#{message}"
+			end
+		}
+		puts "#{from}: #{message}"
 	end
 end
