@@ -9,6 +9,7 @@ class UserManager
 	end
 
 	def add_user socket
+		send 's', "add,#{@id}"
 		@mutex.synchronize {
 			@users << User.new(self, @id.to_s, socket)
 			puts "#{@id} join!"
