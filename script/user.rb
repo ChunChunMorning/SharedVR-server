@@ -42,7 +42,11 @@ class User
 	end
 
 	def write message
-		@socket.write message
+		begin
+			@socket.write message
+		rescue
+			puts "Error: #{@id} can't receive."
+		end
 	end
 
 	def analyze message
