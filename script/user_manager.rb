@@ -10,7 +10,7 @@ class UserManager
 
 	def add_user socket
 		@mutex.synchronize {
-			send_unlocked "#{@id}", "add,0,1,0"
+			send_unlocked "#{@id}", "add"
 
 			data = "#{@id},you\n"
 			@users.each { |user|
