@@ -10,7 +10,7 @@ class UserManager
 
 	def add_user socket
 		@mutex.synchronize {
-			send_unlocked "#{@id}", "add"
+			send_unlocked @id, "add"
 
 			data = "#{@id},you\n"
 			@users.each { |user|
@@ -19,7 +19,7 @@ class UserManager
 
 			socket.write data
 
-			@users << User.new(self, @id.to_s, socket)
+			@users << User.new(self, @id, socket)
 
 			@id += 1
 		}
@@ -28,7 +28,7 @@ class UserManager
 	def erase_user user
 		@mutex.synchronize {
 			@users.delete user
-			send_unlocked "#{user.id}", 'erase'
+			send_unlocked user.id, 'erase'
 		}
 	end
 
