@@ -12,12 +12,12 @@ class UserManager
 		@mutex.synchronize {
 			send_unlocked @id, "add"
 
-			data = "#{@id},you\n"
+			message = "#{@id},you\n"
 			@users.each { |user|
-				data << "#{user.id},add,#{user.position}\n"
+				message << "#{user.id},add,#{user.position}\n"
 			}
 
-			socket.write data
+			socket.write message
 
 			@users << User.new(self, @id, socket)
 
