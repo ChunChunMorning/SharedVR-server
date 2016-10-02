@@ -28,7 +28,7 @@ class UserManager
 	def erase_user user
 		@mutex.synchronize {
 			@users.delete user
-			puts "#{user.id} leave..."
+			send_unlocked "#{user.id}", 'erase'
 		}
 	end
 
@@ -41,7 +41,7 @@ class UserManager
 	def send_unlocked from, message
 		@users.each { |user|
 			if user.id != from
-				user.write "#{from},#{message}"
+				user.write "#{from},#{message}\n"
 			end
 		}
 		puts "#{from}: #{message}"
