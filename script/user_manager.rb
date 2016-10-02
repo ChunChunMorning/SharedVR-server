@@ -34,7 +34,7 @@ class UserManager
 
 	def send from, message
 		@mutex.synchronize {
-			send_unlocked from message
+			send_unlocked from, message
 		}
 	end
 
