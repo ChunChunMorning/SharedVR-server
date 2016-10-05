@@ -12,7 +12,10 @@ class UserManager
 		@mutex.synchronize {
 			send_unlocked @id, "add\n"
 
-			message = "#{@id},you\n"
+			posX = Math.cos(Math::PI / 2 * @id)
+			posZ = Math.sin(Math::PI / 2 * @id)
+
+			message = "#{@id},you,#{posX},0,#{posZ}\n"
 			@users.each { |user|
 				message << "#{user.id},add,#{user.position}\n"
 			}
