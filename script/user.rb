@@ -6,11 +6,11 @@ class User
 
 	attr_accessor :position
 
-	def initialize user_manager, id, socket
+	def initialize user_manager, id, socket, position
 		@user_manager = user_manager
 		@id = id
 		@socket = socket
-		@position = '0,0,0'
+		@position = position
 		Thread.new {
 			loop {
 				message = read
