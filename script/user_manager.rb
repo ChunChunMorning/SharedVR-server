@@ -16,8 +16,8 @@ class UserManager
 
 	def add_user socket
 		@mutex.synchronize {
-			posX = Math.cos(Math::PI / 2 * @id)
-			posZ = Math.sin(Math::PI / 2 * @id)
+			posX = 2 * Math.cos(Math::PI / 2 * @id)
+			posZ = 2 * Math.sin(Math::PI / 2 * @id)
 			pos = "#{posX},0,#{posZ}"
 
 			send_unlocked @id, "add,#{pos}\n"
