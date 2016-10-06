@@ -6,6 +6,12 @@ class UserManager
 		@users = Array.new
 		@id = 0
 		@mutex = Mutex.new
+
+		Thread.new do
+			loop do
+				send 'Server', STDIN.gets
+			end
+		end
 	end
 
 	def add_user socket
