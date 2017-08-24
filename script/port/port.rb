@@ -15,7 +15,12 @@ module Port
 	end
 
 	def get_my_address
-		TCPSocket.gethostbyname(Socket::gethostname)[4]
+		# http://qiita.com/saltheads/items/cc49fcf2af37cb277c4f
+		udp = UDPSocket.new
+		udp.connect("128.0.0.0", 7)
+		adrs = Socket.unpack_sockaddr_in(udp.getsockname)[1]
+		udp.close
+		adrs
 	end
 
 	module_function :set_port_number
