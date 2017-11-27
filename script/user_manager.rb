@@ -9,7 +9,10 @@ class UserManager
 
 		Thread.new do
 			loop do
-				send 'Server', STDIN.gets
+				message = STDIN.gets
+
+				puts 'Server,' + message
+				send 'Server', message
 			end
 		end
 	end
