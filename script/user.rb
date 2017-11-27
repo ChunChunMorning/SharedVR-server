@@ -4,13 +4,11 @@ require_relative './user_manager'
 
 class User
 
-	attr_accessor :position
-
-	def initialize user_manager, id, socket, position
+	def initialize user_manager, id, socket
 		@user_manager = user_manager
 		@id = id
 		@socket = socket
-		@position = position
+
 		Thread.new {
 			loop {
 				message = read

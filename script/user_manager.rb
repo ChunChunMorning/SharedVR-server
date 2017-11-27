@@ -16,20 +16,16 @@ class UserManager
 
 	def add_user socket
 		@mutex.synchronize {
-			posX = 2 * Math.cos(Math::PI / 2 * @id)
-			posZ = 2 * Math.sin(Math::PI / 2 * @id)
-			pos = "#{posX},0,#{posZ}"
+			send_unlocked @id, "add\n"
 
-			send_unlocked @id, "add,#{pos}\n"
-
-			message = "#{@id},you,#{pos}\n"
+			message = "#{@id},you\n"
 			@users.each { |user|
-				message << "#{user.id},add,#{user.position}\n"
+				message << "#{user.id},add\n"
 			}
 
 			socket.write message
 
-			@users << User.new(self, @id, socket, pos)
+			@users << User.new(self, @id, socket)
 
 			@id += 1
 		}
