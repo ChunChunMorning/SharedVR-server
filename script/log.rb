@@ -4,7 +4,7 @@ class Log
 	def self.create
 		now = DateTime.now
 
-		@@time = now.strftime('%m-%d-%S-%H-%M-%L')
+		@@time = now.strftime('%m-%d-%H-%M-%S')
 		@@text = "#{now}\n-------------------------\n\n"
 	end
 
@@ -15,7 +15,7 @@ class Log
 	end
 
 	def self.write message
-		@@text += "#{Time.now.strftime('[%H:%M:%L]')} #{message}"
+		@@text += "#{Time.now.strftime('[%M:%S:%L]')} #{message}"
 	end
 
 	def self.filename
