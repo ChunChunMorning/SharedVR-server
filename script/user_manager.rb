@@ -40,7 +40,7 @@ class UserManager
 	def erase_user user
 		@mutex.synchronize {
 			@users.delete user
-			send_unlocked 'Sever', "erase,#{user.id}\n"
+			send_unlocked 'Server', "erase,#{user.id}\n"
 		}
 	end
 
