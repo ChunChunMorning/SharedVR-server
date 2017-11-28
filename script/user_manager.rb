@@ -11,7 +11,10 @@ class UserManager
 			loop do
 				message = STDIN.gets
 
-				puts 'Server,' + message
+				if message == "shuffle\n"
+					message.gsub! /shuffle/, "shuffle,#{Array((0 ... 10)).shuffle.join}"
+				end
+
 				send 'Server', message
 			end
 		end
