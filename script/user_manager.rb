@@ -1,4 +1,5 @@
 require 'socket'
+require 'time'
 require_relative './user'
 
 class UserManager
@@ -56,6 +57,7 @@ class UserManager
 				user.write "#{from},#{message}"
 			end
 		}
-		puts "#{from}: #{message}"
+
+		puts "#{Time.now.strftime('[%H:%M:%L]')} #{from}: #{message}"
 	end
 end
