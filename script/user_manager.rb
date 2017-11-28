@@ -35,6 +35,8 @@ class UserManager
 
 			@users << User.new(self, @id, socket)
 
+			puts "User #{@id} join."
+
 			@id += 1
 		}
 	end
@@ -43,6 +45,8 @@ class UserManager
 		@mutex.synchronize {
 			@users.delete user
 			send_unlocked 'Server', "erase,#{user.id}\n"
+
+			puts "User #{user.id} left."
 		}
 	end
 
