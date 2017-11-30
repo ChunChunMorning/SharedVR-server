@@ -14,8 +14,8 @@ class UserManager
 				message = STDIN.gets
 
 				if message == "shuffle\n"
-					indexes = Array((0 ... 10)).shuffle
-					ids = [0, 0, 0, 0, 1, 1, 1, 1, 2, 2, 2, 2].shuffle
+					indexes = Array((0 ... 9)).shuffle
+					ids = [0, 0, 0, 1, 1, 1, 2, 2, 2].shuffle
 
 					message.gsub! /shuffle/, "shuffle,#{indexes.join},#{ids.join[0, 10]}"
 				end
